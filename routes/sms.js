@@ -10,8 +10,6 @@ const client = twilio(
 // POST /api/sms/send
 router.post("/send", async (req, res) => {
   try {
-    console.log("Twilio Account SID:", process.env.TWILIO_ACCOUNT_SID);
-    console.log("Twilio Auth Token:", process.env.TWILIO_AUTH_TOKEN);
     const { phoneNumber, billDetails } = req.body;
 
     const message = await client.messages.create({
