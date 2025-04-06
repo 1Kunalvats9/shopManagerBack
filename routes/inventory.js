@@ -104,12 +104,13 @@ router.post("/inventoryget", async (req, res) => {
   }
 });
 
-router.post('/inventory-data',async (req,res)=>{
+router.post('/inventory-data', async (req,res)=>{
   try{
         const { email } = req.body;
 
         if (!email) return res.status(400).json({ success: false, error: "Email is required" });
-        const inventory = await Inventory.findOne({ email }); 
+        const inventory = await Inventory.findOne({ email });
+        console.log(inventory) 
         const products = inventory ? inventory.products : [];
         const inventoryData = {
             totalProducts:products.length
