@@ -88,14 +88,12 @@ router.post("/inventoryput", async (req, res) => {
 router.post("/inventoryget", async (req, res) => {
   try {
     const { email } = await req.body;
-    console.log(email)
     if (!email) {
       return res.status(400).json({ success: false, error: "Email is required" });
     }
 
     const inventory = await Inventory.findOne({ email });
     const products = inventory ? inventory.products : [];
-
     res.status(200).json({ success: true, data: products });
   } catch (err) {
     console.error("❌ Error fetching inventory:", err);
@@ -105,6 +103,7 @@ router.post("/inventoryget", async (req, res) => {
 
 router.post('/inventory-data', async (req,res)=>{
   try{
+        console.log("📩 Incoming request body:", req.body); // Add this
         const { email } = req.body;
 
         if (!email) return res.status(400).json({ success: false, error: "Email is required" });
