@@ -1,7 +1,17 @@
 import express from "express";
 import Inventory from "../models/inventory.js"
+import mongoose from "mongoose";
 
 const router = express.Router();
+
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("MongoDB connected");
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch(err => console.log("DB Error:", err));
 
 
 router.post("/inventoryput", async (req, res) => {
@@ -97,6 +107,7 @@ router.post("/inventoryget", async (req, res) => {
 router.post('/inventory-data',async (req,res)=>{
   try{
         const { email } = req.body;
+
         if (!email) return res.status(400).json({ success: false, error: "Email is required" });
         const inventory = await Inventory.findOne({ email }); 
         const products = inventory ? inventory.products : [];
