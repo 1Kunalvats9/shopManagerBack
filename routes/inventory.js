@@ -119,7 +119,7 @@ router.post('/inventory-data', async (req,res)=>{
         return res.status(200).json({ success: true, data: inventoryData });
 
   }catch(err){
-    console.error("❌ Error fetching inventory:", err);
+    console.error("❌ Error fetching inventory:", err.stack || err);
     res.status(500).json({ success: false, error: err.message });
   }
 })
