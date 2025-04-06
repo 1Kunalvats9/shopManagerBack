@@ -78,7 +78,8 @@ router.post("/inventoryput", async (req, res) => {
   
 router.post("/inventoryget", async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = await req.body;
+    console.log(email)
     if (!email) {
       return res.status(400).json({ success: false, error: "Email is required" });
     }
@@ -95,12 +96,12 @@ router.post("/inventoryget", async (req, res) => {
 
 router.post('/inventory-data',async (req,res)=>{
   try{
-        const { email } = await req.body;
+        const { email } = req.body;
         if (!email) return res.status(400).json({ success: false, error: "Email is required" });
         const inventory = await Inventory.findOne({ email }); 
         const products = inventory ? inventory.products : [];
         const inventoryData = {
-            totalProducts:products.length,
+            totalProducts:products.length
         }
 
         return res.status(200).json({ success: true, data: inventoryData });
