@@ -87,7 +87,7 @@ router.post("/inventoryput", async (req, res) => {
   
 router.post("/inventoryget", async (req, res) => {
   try {
-    const { email } = await req.body;
+    const { email } = req.body;
     if (!email) {
       return res.status(400).json({ success: false, error: "Email is required" });
     }
