@@ -99,9 +99,8 @@ router.post('/inventory-data',async (req,res)=>{
         if (!email) return res.status(400).json({ success: false, error: "Email is required" });
         const inventory = await Inventory.findOne({ email }); 
         const products = inventory ? inventory.products : [];
-        const totalProducts = products.length;
         const inventoryData = {
-            totalProducts:totalProducts
+            totalProducts:products.length,
         }
 
         return res.status(200).json({ success: true, data: inventoryData });
